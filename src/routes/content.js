@@ -1,9 +1,9 @@
 const express = require('express');
 const { get } = require('jquery');
-const dm = require('./db/dbModule');
-const replyDM = require('./db/dbReply')
-const contentDM = require('./db/dbContent')
-const aM = require('./view/alertMsg')
+const dm = require('../db/dbModule');
+const replyDM = require('../db/dbReply')
+const contentDM = require('../db/dbContent')
+const aM = require('../view/alertMsg')
 let cRouter = express.Router();
 module.exports = cRouter;
 
@@ -18,14 +18,14 @@ cRouter.get('/bid/:bid', (req, res) => {
     Promise.all([contentDM.getContent(bid), replyDM.getWholeComment(bid), contentDM.increaseViewCount(bid)])
         .then(([result, wholeComments]) => {
             req.session.contentUname = result.users_uname
-            const view = require('./view/03_contentPage')
+            const view = require('../view/03_contentPage')
             let html = view.contentPage(req.session.uname, result, wholeComments);
             res.send(html);
         })
 })
 
 cRouter.get('/create', (req, res) => {
-    const view = require('./view/04_createContentPage')
+    const view = require('../view/04_createContentPage')
     let html = view.createContentPage(req.session.uname);
     res.send(html);
 })
@@ -51,7 +51,7 @@ cRouter.get('/update/bid/:bid', (req, res) => {
     contentDM.contentToUpdate(bid)
         .then(result => {
             if (req.session.uname === req.session.contentUname) {
-                const view = require('./view/05_updateContentPage')
+                const view = require('../view/05_updateContentPage')
                 let html = view.updateContentPage(req.session.uname, result);
                 res.send(html);
             } else {
@@ -78,7 +78,7 @@ cRouter.get('/delete/bid/:bid', (req, res) => {
     let bid = parseInt(req.params.bid)
 
     if (req.session.uname === req.session.contentUname) {
-        const view = require('./view/06_deleteContentPage')
+        const view = require('../view/06_deleteContentPage')
         let html = view.deleteContentPage(req.session.uname, bid);
         res.send(html);
     } else {

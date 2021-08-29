@@ -27,14 +27,14 @@ app.use(session({
     store: new FileStore({ logFn: function () { } })
 }))
 
-const uRouter = require('./_userRouter')
-app.use('/user', uRouter);
-const cRouter = require('./_contentRouter')
-app.use('/content', cRouter);
-const sRouter = require('./_searchRouter')
-app.use('/search', sRouter);
-const rRouter = require('./_replyRouter')
-app.use('/content/reply', rRouter);
+const userRouter = require('./routes/users')
+app.use('/user', userRouter);
+const contentRouter = require('./routes/content')
+app.use('/content', contentRouter);
+const searchRouter = require('./routes/search')
+app.use('/search', searchRouter);
+const replyRouter = require('./routes/reply')
+app.use('/content/reply', replyRouter);
 
 const dm = require('./db/dbModule');
 const ut = require('./util/util')
@@ -114,4 +114,4 @@ app.get('/cantCreateWithoutLogin', (req, res) => {
     res.send(html)
 })
 
-app.listen(3001, () => { console.log('Server Running at http://127.0.0.1:3001') });
+app.listen(3000, () => console.log('✅ Server up and running at http://127.0.0.1:3000 📣📢') );
