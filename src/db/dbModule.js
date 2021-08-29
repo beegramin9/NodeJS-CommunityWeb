@@ -1,15 +1,29 @@
-const mysql = require('mysql2/promise');
+const mysql = require('mysql');
 
 const fs = require('fs');
-const { timingSafeEqual } = require('crypto');
 let info = fs.readFileSync('./mysql.json', 'utf8');
 let config = JSON.parse(info);
 const connectionPool = mysql.createPool(config);
 
 module.exports = {
-    mainPageGetLists: async function (offset) {
-        try {
-            let conn = await connectionPool.getConnection(async conn => conn);
+    // getConnection: function () {
+    //     let conn = mysql.createConnection({
+    //         host: config.host,
+    //         user: config.user,
+    //         password: config.password,
+    //         database: config.database,
+    //         port: config.port
+    //     })
+    //     conn.connect((error) => {
+    //         if (error)
+    //             console.log(`getConnection 에러 발생: ${error}`);
+    //     })
+    //     return conn;
+    // },
+    mainPageGetLists: function (offset, callback) {
+        // let conn = this.getConnection()
+        connectionPool.getConnection((err, conn) => {
+            if (err) throw errorl
             let sql = `
             SELECT bid AS bbs_bid, 
             title AS bbs_title, 
@@ -25,44 +39,51 @@ module.exports = {
             ORDER BY bbs_bid desc
             limit 10 offset ?
             `
-            let [rows] = await conn.query(sql, offset)
-            conn.release()
-            return rows
+            conn.query(sql, offset, (error, rows, fields) => {
+                conn.release();
+                if (error)
+                    console.log(`mainPageGetLists2 에러 발생: ${error}`);
+                callback(rows);
+            })
 
-        } catch (error) {
-            console.log(`mainPageGetLists 에러 발생: ${error}`);
-            return false
-        }
+        })
+        /* 내가 이름 지어주는 걸 완료했으면 */
+        /* order by 할 때는 내가 지어준 이름으로! */
+        /* ORDER BY bbs_bid DESC LIMIT 30 */
+
     },
-    getTotalNumContent: async function () {
-        try {
-            let conn = await connectionPool.getConnection(async conn => conn)
+    getTotalNumContent: function (callback) {
+        // let conn = this.getConnection()
+        connectionPool.getConnection((err, conn) => {
+            if (err) throw error
             let sql = `
             SELECT COUNT(*) AS bbs_count FROM bbs 
             where isDeleted=0
             `
-            let [result] = await conn.query(sql)
-            conn.release();
-            return result[0]
-        } catch (error) {
-            console.log(`getTotalNumContent 에러 발생: ${error}`);
-            return false
-        }
+            conn.query(sql, (error, result, fields) => {
+                conn.release();
+                if (error)
+                    console.log(`getTotalNumContent 에러 발생: ${error}`);
+                callback(result[0]);
+            })
+        })
+
+
     },
 
-    loginUserInfo: async function (uid) {
-        try {
-            let conn = await connectionPool.getConnection(async conn => conn)
+    loginUserInfo: function (uid, callback) {
+        // let conn = this.getConnection()
+        connectionPool.getConnection((err, conn) => {
             let sql = `select uid,
-            pwd, 
-            uname
-            from users where uid like ?`
-            let [result] = await conn.query(sql, uid)
-            conn.release()
-            return result[0]
-        } catch (error) {
-            console.log(`loginUserInfo 에러 발생: ${error}`);
-            return false
-        }
+                        pwd, 
+                        uname
+                        from users where uid like ?`
+            conn.query(sql, uid, (error, results, fields) => {
+                conn.release()
+                if (error)
+                    console.log(`getUserInfo 에러 발생: ${error}`);
+                callback(results[0]);
+            })
+        })
     }
 }

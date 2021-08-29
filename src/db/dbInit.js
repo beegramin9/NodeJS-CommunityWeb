@@ -8,6 +8,20 @@ const connectionPool = mysql.createPool(config);
 
 
 module.exports = {
+    // getConnection: function () {
+    //     let conn = mysql.createConnection({
+    //         host: config.host,
+    //         user: config.user,
+    //         password: config.password,
+    //         database: config.database,
+    //         port: config.port
+    //     })
+    //     conn.connect((error) => {
+    //         if (error)
+    //             console.log(`getConnection 에러 발생: ${error}`);
+    //     })
+    //     return conn;
+    // },
     CreateTableUsers: async function () {
         try {
             let conn = await connectionPool.getConnection(async conn => conn)

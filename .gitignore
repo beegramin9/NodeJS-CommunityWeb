@@ -5,7 +5,6 @@ mysql.json
 sessions/
 fonts
 upload
-ckeditor
 src..
 # tmp랑 tmp 안에 있는 파일/폴더들은 깃에 올라가지 않는다
 # 상대경로 상관없음. 그냥 파일 이름만 적으면 알아서 찾아감

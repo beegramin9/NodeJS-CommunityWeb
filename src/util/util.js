@@ -30,6 +30,16 @@ module.exports = {
             next();
         }
     },
+    loginCheck: function () {
+
+    },
+
+
+
+
+
+
+
 
     viewPage: function (currentPage, startPage, endPage, totalPage, isSearch) {
 
