@@ -128,6 +128,7 @@ module.exports = {
             `
         }
     },
+    //! 이건 안쓰는데 왜 여기있는거지?
     contentNavBar: function (uname) {
         if (!uname) {
             return `

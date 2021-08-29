@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 const fs = require('fs');
 const { callbackify } = require('util');
 const { photo } = require('../view/00_template');
-let info = fs.readFileSync('./mysql.json', 'utf8');
+let info = fs.readFileSync('mysql.json', 'utf8');
 let config = JSON.parse(info);
 const connectionPool = mysql.createPool(config);
 

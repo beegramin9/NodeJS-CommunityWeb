@@ -1,8 +1,8 @@
 const express = require('express');
 const { get } = require('jquery');
-const dm = require('../db/dbModule');
-const replyDM = require('../db/dbReply')
-const contentDM = require('../db/dbContent')
+const dm = require('../models/dbModule');
+const replyDM = require('../models/dbReply')
+const contentDM = require('../models/dbContent')
 const aM = require('../view/alertMsg')
 let cRouter = express.Router();
 module.exports = cRouter;

@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 
 const fs = require('fs');
 const { timingSafeEqual } = require('crypto');
-let info = fs.readFileSync('./mysql.json', 'utf8');
+let info = fs.readFileSync('mysql.json', 'utf8');
 let config = JSON.parse(info);
 const connectionPool = mysql.createPool(config);
 

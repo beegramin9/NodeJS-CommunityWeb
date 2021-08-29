@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"> 
+        <link rel="stylesheet" href="/fonts/css/all.min.css">
+        <script src="/jquery/jquery.min.js"></script>
+        <script src="/popper/popper.min.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js"></script>
+        <title>Joy Community</title>
+    </head>
+    <body>
+        <%- include('partials/navbar')  %> 
+        <%- body  %>
+        <%- include('partials/footer')  %> 
+    </body>
+    <!-- 사진 넣을 때 필요한 JavaScript 코드 -->
+    <script>
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                    form.classList.add('was-validated');
+                        }, false);
+                });
+            }, false);
+        });
+    </script>
+</html>

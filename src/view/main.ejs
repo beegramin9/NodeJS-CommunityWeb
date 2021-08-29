@@ -1,0 +1,36 @@
+<% for( let row of rows ) { %>
+    <tr>
+        <td class="text-secondary" style="padding-right:20px;"><%= row.bbs_bid %></td>  
+        <td style="padding-right:20px;">
+            <a class="text-body"href="/content/bid/<%= row.bbs_bid %>">
+                <%= row.bbs_title %> 
+            <span class="text-danger">[ <%= row.bbs_replyCount %> ]</span>
+        </td>
+        <td class="text-body" style="padding-right:20px;"> <%= row.users_uid %> </td>
+        <td class="text-secondary" style="padding-right:20px;"> <%= row.bbs_modTime %> </td>
+        <td class="text-secondary" style="padding-right:20px;">
+            <i class="fas fa-eye"></i>
+            <%= row.bbs_viewCount %>
+        </td>
+    </tr>
+<% } %>
+
+let tableRow = '';
+for (let row of rows) {
+    tableRow += `
+                <tr>
+                    <td class="text-secondary" style="padding-right:20px;">${row.bbs_bid}</td>
+                    <td style="padding-right:20px;">
+                        <a class="text-body"href="/content/bid/${row.bbs_bid}">
+                        ${row.bbs_title}
+                        <span class="text-danger">[${row.bbs_replyCount}]</span>
+                    </td>
+                    <td class="text-body" style="padding-right:20px;">${row.users_uid}</td>
+                    <td class="text-secondary" style="padding-right:20px;">${row.bbs_modTime}</td>
+                    <td class="text-secondary" style="padding-right:20px;">
+                    <i class="fas fa-eye"></i>
+                    ${row.bbs_viewCount}</td>
+                </tr>
+    
+    `
+}

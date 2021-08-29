@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
+var layout = require('express-ejs-layouts');
+app.use(layout);
+
 const fs = require('fs');
 
 app.use('/bootstrap', express.static(__dirname + '/../node_modules/bootstrap/dist'))
@@ -36,7 +41,7 @@ app.use('/search', searchRouter);
 const replyRouter = require('./routes/reply')
 app.use('/content/reply', replyRouter);
 
-const dm = require('./db/dbModule');
+const dm = require('./models/dbModule');
 const ut = require('./util/util')
 const aM = require('./view/alertMsg');
 const e = require('express');

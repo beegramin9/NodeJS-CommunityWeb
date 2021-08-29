@@ -114,9 +114,9 @@ module.exports = {
             else
                 pages += `<li class="page-item">
                         <a class="page-link text-body" href="/search/${searchKeyword}/${page}">
-                          ${page}
+                            ${page}
                         </a>
-                      </li>`;
+                    </li>`;
         }
         let rightPage = (endPage < totalPage) ? `/search/${searchKeyword}/${currentPage + 1}` : '#';
         pages += `  <li class="page-item">

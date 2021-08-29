@@ -1,8 +1,8 @@
 const express = require('express');
-const dm = require('./db/dbModule');
-const ut = require('./util/util')
-const userDM = require('./db/dbUser')
-const aM = require('./view/alertMsg');
+const dm = require('../models/dbModule');
+const ut = require('../util/util')
+const userDM = require('../models/dbUser')
+const aM = require('../view/alertMsg');
 
 let uRouter = express.Router();
 module.exports = uRouter;
